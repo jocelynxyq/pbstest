@@ -1,0 +1,7 @@
+node_modules
+*.log
+client/bower_components
+server/config/secrets.js
+client/public
+client/tasks/*
+client/uploads/*

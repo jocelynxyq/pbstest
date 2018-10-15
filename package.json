@@ -1,0 +1,14 @@
+{
+  "name": "pbstest",
+  "version": "1.0.0",
+  "description": "test for interface of pbs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "jocelyn",
+  "license": "ISC",
+  "dependencies": {
+    "ssh2": "^0.6.1"
+  }
+}
