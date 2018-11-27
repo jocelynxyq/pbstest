@@ -1,0 +1,187 @@
+doctype html
+html
+  head
+    title PBS test
+    link(rel='stylesheet', href='https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css')
+    link(href='/styles/main.css', rel='stylesheet')
+    link(rel='stylesheet', href='/bower_components/font-awesome/css/font-awesome.min.css')
+    style.
+      body > nav {
+        text-align: center;
+      }
+      button.btn {
+        height: 52px;
+        margin: 0;
+        padding: 0 20px;
+        vertical-align: middle;
+        background: #49afcd;
+        border: 0;
+        font-family: 'Lato', sans-serif;
+        font-size: 22px;
+        font-weight: 400;
+        line-height: 52px;
+        color: #fff;
+        -moz-border-radius: 6px;
+        -webkit-border-radius: 6px;
+        border-radius: 6px;
+        text-shadow: none;
+        -moz-box-shadow: none;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        -o-transition: all .3s;
+        -moz-transition: all .3s;
+        -webkit-transition: all .3s;
+        -ms-transition: all .3s;
+        transition: all .3s;
+      }
+
+      button.btn:hover {
+        opacity: 0.6;
+        color: #fff;
+        -o-transition: all .3s;
+        -moz-transition: all .3s;
+        -webkit-transition: all .3s;
+        -ms-transition: all .3s;
+        transition: all .3s;
+      }
+
+      button.btn:active {
+        outline: 0;
+        opacity: 0.6;
+        color: #fff;
+        -moz-box-shadow: none;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+      }
+
+      button.btn:focus {
+        outline: 0;
+        opacity: 0.6;
+        background: #8ec1cd;
+        color: #fff;
+      }
+
+      .form-signin {
+        max-width: 330px;
+        padding: 15px;
+        margin: 0 auto;
+      }
+
+      .form-signin,
+      .form-signin .checkbox {
+        margin-bottom: 10px;
+      }
+
+      .form-signin .checkbox {
+        font-weight: normal;
+      }
+
+      .form-signin .form-control {
+        position: relative;
+        font-size: 16px;
+        height: auto;
+        padding: 10px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+      }
+
+      .form-signin .form-control:focus {
+        z-index: 2;
+      }
+
+      .form-signin input[type="text"] {
+        margin-bottom: -1px;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+
+      .form-signin input[type="password"] {
+        margin-bottom: 10px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+      }
+
+      .divider {
+        text-align: center;
+        border-bottom: 1px solid #ccc;
+        display: block;
+        height: 12px;
+        margin: 10px 0 30px;
+        overflow: visible;
+        position: relative;
+        width: 100%;
+      }
+      .divider strong {
+        background: #f2f4f6 none repeat scroll 0 0;
+        color: #8c909e;
+        font-size: 12px;
+        font-weight: lighter;
+        padding: 0 20px;
+        text-transform: uppercase;
+      }
+      .divider::before {
+        margin-left: -50%;
+        right: 1em;
+      }
+      .divider::after {
+        left: 1em;
+        margin-right: -50%;
+      }
+
+      .btn-toSignup{
+        border:none; 
+        background-color:#444444;
+        margin-top:30px;
+      }
+
+      .btn-toLogin{ 
+        border:none; 
+        background-color:#27AAC8;
+      }
+
+
+  body
+    nav(style='display: block;')
+      a#a-active(href='/') Home
+      a(href='/submit') Submit
+      a(href='/about') About
+      a(href='/contact') Contact
+    .container-fluid.container-gray
+      .container
+        .col-md-4.col-md-offset-4(style="margin-top:150px;")
+          .panel-heading
+              h3.form-signin-heading.center(style="margin-top:24px;") 用户登录
+          .panel-body
+              form.form-signin.form-horizontal(method='post',action='/account/login/?from=#{from}')
+              .form-group
+                  label.sr-only(for="inputEmail") Username
+                  input#inputEmail.form-control(name='user[mail]',type="text", placeholder="用户名", autofocus, required)
+              .form-group
+                  label.sr-only(for="inputPassword") Password
+                  input#inputPassword.form-control(name='user[password]',type="password", placeholder="密码", required)
+              if referer
+                  input(type='hidden',name='referer',value='#{referer}')
+              .form-group
+                  button.btn.btn-lg.btn-primary.btn-block.btn-toLogin(type="submit") 登录
+                  //-span.center.text-muted(style="margin-top:12px;") 忘记密码
+              span.divider
+
+        .row
+          .col-md-4.col-md-offset-4(style="margin-bottom:100px;")
+            .alert.alert-danger.alert-dismissible(role='alert',style='visibility:hidden')
+              button.close(type='button', data-dismiss='alert', aria-label='Close')
+                span(aria-hidden='true') ×
+              strong #{message} 
+    footer
+      .container
+        .row
+          .col-sm-8.footer-copyright
+            | © Jocelyn.
+          .col-sm-4.footer-social
+            a(href='#')
+              i.fa.fa-weibo
+            a(href='#')
+              i.fa.fa-envelope
+    script(src='/bower_components/jquery/dist/jquery.js')
+    script(src='/bower_components/bootstrap/dist/js/bootstrap.js')

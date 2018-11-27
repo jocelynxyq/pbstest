@@ -1,9 +1,9 @@
 var express = require('express')
 
-var app = express()
-
 // Add coloring for console output
 require('colors');
+
+var app = express()
 
 // Express configuration
 require('./server/config/express')(app, express);

@@ -1,0 +1,89 @@
+doctype html
+html
+  head
+    meta(charset='utf8')
+    title Test
+    link(href='https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css', rel='stylesheet')
+    style.
+      #file-content {
+        width:95%;
+        height:300px;
+      }
+
+      .aligncenter {
+        clear: both;
+        margin:auto;
+      }
+      
+  body
+    .container
+      .row
+        .panel.panel-default
+          .panel-heading
+            h3.panel-title 文件列表
+          | 		
+          .panel-body
+            table.table.table-striped.table-hover
+              thead
+                tr
+                  th 文件
+                  | 						
+                  th 大小
+                  | 						
+                  th 预览
+                    i#viewinfo.glyphicon.glyphicon-info-sign.help-icon
+                  | 						
+                  th 下载
+              | 				
+              tbody
+                tr
+                  th H2O.chk
+                  | 						
+                  th 700K
+                  | 						
+                  th
+                    a.view-file(href="javascript:void(0);",data-taskid='5b694c12873d170100d11fa8',data-filename='H2O.chk')
+                      span.glyphicon.glyphicon-eye-open  
+                  | 						
+                  th
+                    a(href="/task/download/5b694c12873d170100d11fa8?file=H2O.chk")
+                      span.glyphicon.glyphicon-save  
+                | 					
+                tr
+                  th Info.out
+                  | 						
+                  th 43
+                  | 						
+                  th
+                    a.view-file(href="javascript:void(0);",data-taskid='5b694c12873d170100d11fa8',data-filename='Info.out')
+                      span.glyphicon.glyphicon-eye-open
+                  | 						
+                  th
+                    a(href="/task/download/5b694c12873d170100d11fa8?file=Info.out")
+                      span.glyphicon.glyphicon-save 
+
+      #myModal.modal.fade(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true" )
+        .modal-dialog
+          .modal-content
+            .modal-header
+              button.close(type="button", data-dismiss="modal", aria-hidden="true")
+                | ×
+              |                 
+              h4#myModalLabel.modal-title
+                | 文件
+            |             
+            .modal-body
+              img.aligncenter#loading-file(src="/public/load-file.gif") 
+              textarea#file-content(readonly="")
+            |             
+            .modal-footer
+              button.btn.btn-default(type="button", data-dismiss="modal")
+                | 关闭
+              a#href-to-download
+                button.btn.btn-default(type="button", class="btn btn-primary")
+                  | 下载
+
+
+  script(src='/bower_components/jquery/dist/jquery.js')
+  script(src='/bower_components/bootstrap/dist/js/bootstrap.js')
+  script(src='/scripts/test.js')   

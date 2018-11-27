@@ -1,7 +1,18 @@
+var fs=require('fs');
+var path=require('path');
 var config = require('../config/secrets');
 var Client = require('ssh2').Client;
- 
-var indexController = async function(req, res) {
+
+
+var indexController = function(req, res) {
+    res.render('index');
+};
+
+var testController = function(req, res) {
+    res.render('test');
+};
+
+var sshController = function(req, res) {
     var conn = new Client();
 
     conn.on('ready', function() {
@@ -25,6 +36,9 @@ var indexController = async function(req, res) {
     });
 };
 
+
 module.exports = {
-  	index: indexController
+    index: indexController,
+    ssh: sshController,
+    test: testController,
 };

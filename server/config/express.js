@@ -5,12 +5,15 @@ var logger = require('morgan');
 var path = require('path');
 var errorHandler = require('errorhandler');
 
+//处理文件上传中间件
+var multer  = require('multer');
+
 // Configuration files
 var settings = require('./env/default');
 
 var expressConfig = async function(app, express) {
     // view engine setup
-    app.set('views', path.join(__dirname, 'views'));
+    app.engine('pug', require('pug').renderFile);
     app.set('view engine', 'pug');
 
     // Setup path where all server templates will reside
@@ -39,8 +42,26 @@ var expressConfig = async function(app, express) {
     // Returns middleware that parses cookies
     app.use(cookieParser());
 
+    //要定期清理缓存文件夹
+    app.use(multer({ 
+      dest: './client/uploads', 
+      rename: function (fieldname, filename) {
+        return filename;
+      },
+      inMemory: true
+      }
+    ));
+
     app.use(logger('dev'));
-    
+
+    // Disable caching for easier testing
+    app.use(function noCache(req, res, next) {
+        res.header('Cache-Control', 'no-cache, no-store, must-revalidate');
+        res.header('Pragma', 'no-cache');
+        res.header('Expires', 0);
+        next();
+      });
+      
     // Load routes
     require(path.join(settings.root,'./server/routes'))(app);
 

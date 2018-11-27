@@ -1,0 +1,211 @@
+doctype html
+html
+  head
+    meta(charset='utf8')
+    title PBS Web
+    link(href='https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css', rel='stylesheet')
+    link(href='/styles/main.css', rel='stylesheet')
+    link(href='/bower_components/bootstrap-tabs-x/css/bootstrap-tabs-x.min.css', rel='stylesheet')
+    link(href='/bower_components/bootstrap-fileinput/css/fileinput.min.css',rel='stylesheet')
+    link(href='/bower_components/font-awesome/css/font-awesome.min.css',rel='stylesheet')
+
+    style.
+      .tab-box-icon {
+        width: 30px;
+        height: 30px;
+        margin: 0 auto;
+        font-size: 40px;
+        line-height: 40px;
+      }
+
+      #myTab-tabs-above > li > a {
+        font-size: 20px;
+      }
+
+      .tab-content {
+        padding: 30px;
+      }
+
+      .btn-file, #submit-button{
+        background: #8ec1cd;
+        color: #fff;
+      }
+
+      .btn-file:hover, #submit-button:hover{
+        opacity: 0.6;
+        color: #fff;
+      }
+
+      .upload-list{
+        border-right:1px solid lightgray;
+        text-align:left
+      }
+
+      #step-panel{
+        margin-top: 20px;
+      }
+
+      .nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover{
+        background: #8ec1cd;
+      }
+
+      #input-form {
+        display: block;
+        width: 100%;
+        height: 34px;
+        padding: 6px 12px;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #555;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      #submit-button{
+        margin-top: 20px;
+        float:right
+      }
+      .btn-info {
+        color: #ffffff;
+        text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+        background-color: #8ec1cd;
+        *
+        background-color: #2f96b4;
+        background-image: -moz-linear-gradient(top, #5bc0de, #2f96b4);
+        background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#5bc0de), to(#2f96b4));
+        background-image: -webkit-linear-gradient(top, #5bc0de, #2f96b4);
+        background-image: -o-linear-gradient(top, #5bc0de, #2f96b4);
+        background-image: linear-gradient(to bottom, #5bc0de, #2f96b4);
+        background-repeat: repeat-x;
+        border-color: #2f96b4 #2f96b4 #1f6377;
+        border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff5bc0de', endColorstr='#ff2f96b4', GradientType=0);
+        filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+      }
+
+  body
+    nav(style='display: block;text-align: center;')
+      a(href='/') Home
+      a#a-active(href='/submit') Submit
+      a(href='/about') About
+      a(href='/contact') Contact
+    .container-fluid.container-gray
+      .container
+        .row.form-group#step-panel
+          .col-sm-8.col-sm-offset-2
+            ul.nav.nav-pills.nav-justified.thumbnail.setup-panel
+              li.active
+                a(href='#step-1')
+                  h4.list-group-item-heading Step 1
+                  p.list-group-item-text Upload scripts or files
+              li.disabled
+                a(href='#step-2')
+                  h4.list-group-item-heading Step 2
+                  p.list-group-item-text Get progress and results 
+        #step-1
+          .row
+            // Tabs Above
+            .tabs-x.tabs-above.tab-bordered.tabs-krajee
+              ul#myTab-tabs-above.nav.nav-tabs(role='tablist')
+                li.active
+                  a(href='#home-tabs-above', role='tab', data-toggle='tab') 
+                    i.fa.fa-edit.fa-lg.tab-box-icon
+                    |  &nbsp; Use form to create script
+                li
+                  a(href='#profile-tabs-above', role='tab-kv', data-toggle='tab') 
+                    i.fa.fa-upload.fa-lg.tab-box-icon
+                    |  &nbsp; Upload script or files
+                li.disabled
+                  a(href='#disabled-tabs-above')
+                    i.fa.fa-mail-forward.fa-lg.tab-box-icon
+                    |  &nbsp; Run script
+              #myTabContent-tabs-above.tab-content
+                #home-tabs-above.tab-pane.fade.in.active
+                  fieldset
+                    legend General Options
+                    // Script name
+                    .input-prepend.input-append
+                      .btn-group
+                        a.btn.span2.btn-info(href='#', data-toggle='popover', title='Script Name', data-content="In this field you can insert a name for your script. Remember that if there is already a script with the same name in your home folder, it'll be overwritten.<br /> Interface automatically adds .pbs extension", data-html='true', data-container='body') Script Name
+                        input.input-block-level.input-xlarge(id='scriptname appendPrependInput', type='text', name='scriptname', placeholder='Insert script name', form='form-submit-script')
+                        span.add-on .pbs
+                    br
+                    // Job name
+                    .input-prepend
+                      .btn-group
+                        a.btn.span2.btn-info(href='#', data-toggle='popover', title='Job name | -N', data-content='<p>Declares a name for the job.  The name specified may be  up  to<br/> and  including  15  characters  in  length.  It must consist of printable, non white space characters with the first  character alphabetic.<br/></p><p> If  the  -N option  is not specified, the job name will be the base name of the job script file specified on the command line.</p>', data-html='true', data-container='body') Job name
+                        a#jobname_ee(href='#', data-toggle='popover', data-title='Error', data-content='Use only a-z, 0-9, - and _', data-trigger='manual', data-container='body')
+                          input.input-block-level.input-xlarge(id='jobname prependInput', type='text', name='jobname', placeholder='Insert job name', onkeypress='compose();', onchange='compose();')
+                    br
+                    // Export shell variable
+                    div
+                      .btn-group
+                        a.btn.span2.btn-info(href='#', data-toggle='popover', title='Export env variables  | -V', data-content="Declares that all environment variables in the  qsub  command's environment are to be exported to the batch job.", data-html='true', data-container='body') Export Env Variables
+                        // Elemento nascosto
+                        input#exportEnv(style='display:none', type='text', name='exportEnv', value='#PBS -V')
+                        // Elementi visibili
+                        .btn-group(data-toggle='buttons-radio')
+                          button#exportEnvYes.btn.span2.active(type='button', onclick="\
+                          document.getElementById('exportEnv').setAttribute('value', '#PBS -V'); \
+                          compose();") Yes
+                          button#exportEnvNo.btn.span2(type='button', onclick="\
+                          document.getElementById('exportEnv').setAttribute('value', ''); \
+                          compose();") No
+                    br
+                    // High Fault tollerance
+                    div
+                      .btn-group
+                        a.btn.span2.btn-info(href='#', data-toggle='popover', title='High fault tollerance | -f', data-content='Specifies that the job is fault  tolerant.  The  fault_tolerant attribute will be set to true, which indicates that the job can survive the loss of a mom other than the <em>mother superior</em> mom\
+                        (the first node in the exec hosts)', data-html='true', data-container='body') HFault Tollerance
+                        // Elemento nascosto
+                        input#HFaultToll(style='display:none', type='text', name='HFaultToll', value='')
+                        // Elementi visibili
+                        .btn-group(data-toggle='buttons-radio')
+                          button#HFaultTollYes.btn.span2(type='button', onclick="\
+                          document.getElementById('HFaultToll').setAttribute('value', '#PBS -f'); \
+                          compose();") Yes
+                          button#HFaultTollNo.btn.span2.active(type='button', onclick="\
+                          document.getElementById('HFaultToll').setAttribute('value', ''); \
+                          compose();") No
+                    br
+                    // Rerunable Job
+                    div
+                      .btn-group
+                        a.btn.span2.btn-info(href='#', data-toggle='popover', title='Rerunable Job | -r y|n', data-content='Declares whether the job is rerunable.', data-html='true', data-container='body') Rerunable Job
+                        // Elemento nascosto
+                        input#RerunJob(style='display:none', type='text', name='RerunJob', value='')
+                        // Elementi visibili
+                        .btn-group(data-toggle='buttons-radio')
+                          button#RerunJobYes.btn.span2(type='button', onclick="\
+                          document.getElementById('RerunJob').setAttribute('value', ''); \
+                          compose();") Yes
+                          button#RerunJob.btn.span2(type='button', onclick="\
+                          document.getElementById('RerunJob').setAttribute('value', '#PBS -r n'); \
+                          compose();") No
+                    br
+
+                #profile-tabs-above.tab-pane.fade
+                  //div.col-xs-12.col-sm-6.upload-list
+                  label  Upload script or files
+                  div
+                    .row
+                      .col-md-12.col-xs-12
+                        input#inputData(name='file_data', type='file', multiple='')
+                #disabled-tabs-above.tab-pane.fade Disabled Content
+                  label Type your command line
+                    div
+                      .row
+                        .col-md-12.col-xs-12
+                          input#input-form
+                  button.btn#submit-button(onclick="window.location='/result';") Submit
+                
+
+      
+    
+  script(src='/bower_components/jquery/dist/jquery.js')
+  script(src='/bower_components/bootstrap/dist/js/bootstrap.js')
+  script(src='/bower_components/bootstrap-tabs-x/js/bootstrap-tabs-x.min.js')
+  script(src='/bower_components/bootstrap-fileinput/js/fileinput.min.js')
+
